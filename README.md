@@ -1,7 +1,9 @@
 #  Using Expert Knowledge for Masking Irrelevant Data Streams in Siamese Networks for the Detection and Prediction of Faults
 Accompanying repository to the paper [Using Expert Knowledge for Masking Irrelevant Data Streams in Siamese Networks  for the Detection and Prediction of Faults](https://PLACEHOLDER.com) which is currently under review.
 
-The implementation of some components is based on the one presented in [NeuralWarp](https://arxiv.org/abs/1812.08306) ([GitHub](https://github.com/josifgrabocka/neuralwarp)).
+Sketch of the proposed Siamese Encoder (CNN-2D GCN Masked, .c.f. Sect. 3):  
+![2DCNN-GCN_Masked_Architecture](https://raw.githubusercontent.com/PredM/SiameseNetwork-Masking/master/supplementary_resources/2DCNN-GCN_Masked_Architecture.png)
+In short: A multivariate time series is processed from left to right resulting in the output _H_L_ and _h_G_. First, 2D convolutional layers (2D Convs) and finally fully connected layers (TDFC) are applied to each data stream (attribute-wise) for extracting temporal dependencies. Then for considering spatial dependencies between data streams, graph convolutions (GC) are applied. Repeating blocks of layers are shown as a trapezoid. The horizontal rectangles represent a time series and the square attached to it on the right represents the concatenation with its embedding. Lines connecting the rectangles represent connections modelled in the adjacency matrix. The crosses indicate the places where masking happens. The masking of data streams is class-dependent and, like the adjacency matrix, is based on expert knowledge.
 
 ## Supplementary Resources
 * The sub directory [supplementary\_resources](https://github.com/PredM/SiameseNetwork-Masking/tree/master/supplementary_resources) of this repository contains additional information about the [data sets](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/Train_Valid_Test_DataSet_Statistics.png) used and the architecture of the CNN-2D GCN Masked model([Sketch](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/2DCNN-GCN_Masked_Architecture.png), [Plotted Model Graph](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/CNN2D-GCN_Masked.png)).
@@ -45,7 +47,7 @@ whereby some rarely changed variables such as the [relevant data streams per cla
 A detailed description of what each directory contains is given in corresponding parts of the configuration file. 
 
 ## Software components
-The following section gives an overview of the most important packages, directories and included Python scripts in this repository. 
+The following section gives an overview of the most important packages, directories and included Python scripts in this repository. The implementation of some components is based on the one presented in [NeuralWarp](https://arxiv.org/abs/1812.08306) ([GitHub](https://github.com/josifgrabocka/neuralwarp)).
 
 ### configuration
 | Python script | Purpose |
