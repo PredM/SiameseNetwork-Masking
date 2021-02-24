@@ -4,17 +4,17 @@ Accompanying repository to the paper [Using Expert Knowledge for Masking Irrelev
 The implementation of some components is based on the one presented in [NeuralWarp](https://arxiv.org/abs/1812.08306) ([GitHub](https://github.com/josifgrabocka/neuralwarp)).
 
 ## Supplementary Resources
-* The sub directory [supplementary\_resources](https://github.com/PredM/SiameseNeuralNetwork/tree/master/supplementary_resources) of this repository contains additional information about the data sets used and the architecture of the CNN-2D GCN Masked model.
-* The [detailed logs](https://seafile.rlp.net/d/229942a2015f46648e5c/) for each of the experiments presented in Tab. 2 and 3. 
-* The [raw data](https://seafile.rlp.net/d/cd5590e4e9d249b2847e/) recorded with this [simulation factory model](https://iot.uni-trier.de) used to generate the training and evaluation data sets.
+* The sub directory [supplementary\_resources](https://github.com/PredM/SiameseNetwork-Masking/tree/master/supplementary_resources) of this repository contains additional information about the [data sets](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/Train_Valid_Test_DataSet_Statistics.png) used and the architecture of the CNN-2D GCN Masked model([Sketch](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/2DCNN-GCN_Masked_Architecture.png), [Plotted Model Graph](https://github.com/PredM/SiameseNetwork-Masking/blob/master/supplementary_resources/CNN2D-GCN_Masked.png)).
+* The [detailed logs](https://seafile.rlp.net/d/229942a2015f46648e5c/) for each of the experiments presented in Tab. 2 and 3 are provided. 
+* The [raw data](https://seafile.rlp.net/d/cd5590e4e9d249b2847e/) recorded with this [simulation factory model](https://iot.uni-trier.de) was used to generate the training and evaluation data sets.
 * The [preprocessed data set](https://seafile.rlp.net/d/fcf7958432af4ecfb380/) we used for the evaluation.
 
-## Quick start guide: How to start the model?
+## Quick start guide: How to train and evaluate a model?
 1. Clone the repository
 2. Download the [preprocessed data set](https://seafile.rlp.net/d/fcf7958432af4ecfb380/) and move it to the _data_ folder
-3. Navigate to the _neural_network_ folder and start the training and test procedure via _python TrainSelectAndTest.py > Log.txt_. This will reproduce the results for the proposed Model (CNN-2D GCN Masked, c.f. Sect. 3)
+3. Navigate to the _neural_network_ folder and start the training and test procedure via _python [TrainSelectAndTest.py](https://github.com/PredM/SiameseNetwork-Masking/blob/master/neural_network/TrainSelectAndTest.py) > Log.txt_. This will reproduce the results for the proposed Model ([CNN-2D GCN Masked](https://github.com/PredM/SiameseNetwork-Masking/blob/0ca2daea6092058c86ab34e48e1644dbb633a08c/neural_network/BasicNeuralNetworks.py#L536), c.f. Sect. 3)
 
-You can train and test another SNN architecture by changing the encoder configuration in line 130 in Configuration.py.
+You can train and test another SNN architecture by changing the encoder configuration in [line 130 in Configuration.py](https://github.com/PredM/SiameseNetwork-Masking/blob/0ca2daea6092058c86ab34e48e1644dbb633a08c/configuration/Configuration.py#L130).
 
 ## Requirements
 Used python version: 3.7.X \
@@ -37,16 +37,22 @@ Used packages: See requirements.txt
 </table>
 
 ## General instructions for use
-* All settings can be adjusted in the script Configuration.py, 
-whereby some rarely changed variables are stored in the file config.json, which is read in during the initialization.
-* The hyperparameters of the neural networks can be defined in the script Hyperparameter.py or a pre-defined configuration can be imported from a file in configuration/hyperparameter_combinations/
-(Please take a look at line 130 in Configuration.py).
-* For training, selecting the best model on the validation set and testing it on the test set, use: TrainSelectandTest.py 
-* The data/ directory contains all required data. Central are the pre-processed training data in data/training_data/ and the trained models in data/trained_models/. 
+* All settings can be adjusted in the script [Configuration.py](https://github.com/PredM/SiameseNetwork-Masking/blob/master/configuration/Configuration.py), 
+whereby some rarely changed variables such as the [relevant data streams per class](https://github.com/PredM/SiameseNetwork-Masking/blob/0ca2daea6092058c86ab34e48e1644dbb633a08c/configuration/config.json#L314) are stored in the file [config.json](https://github.com/PredM/SiameseNetwork-Masking/blob/master/configuration/config.json), which is read in during the initialization.
+* The hyperparameters of the neural networks can be defined in the script Hyperparameter.py or a pre-defined configuration can be imported from a file in [configuration/hyperparameter_combinations/](https://github.com/PredM/SiameseNetwork-Masking/tree/master/configuration/hyperparameter_combinations).
+* For training, selecting the best model on the validation set and testing it on the test set, use:[TrainSelectAndTest.py](https://github.com/PredM/SiameseNetwork-Masking/blob/master/neural_network/TrainSelectAndTest.py) 
+* The [data/ directory](https://github.com/PredM/SiameseNetwork-Masking/tree/master/data) contains all required data. Central are the pre-processed training data in [data/training_data/](https://github.com/PredM/SiameseNetwork-Masking/tree/master/data/training_data9 and the trained models in [data/trained_models/](https://github.com/PredM/SiameseNetwork-Masking/tree/master/data/trained_models). 
 A detailed description of what each directory contains is given in corresponding parts of the configuration file. 
 
 ## Software components
-The following section gives an overview of the packages, directories and included Python scripts in this repository. 
+The following section gives an overview of the most important packages, directories and included Python scripts in this repository. 
+
+### configuration
+| Python script | Purpose |
+| ---      		|  ------  |
+|Configuration.py|The configuration file within which all adjustments can be made.|
+|Hyperparameters.py| Contains the class that stores the hyperparameters used by a single neural network.|
+
 ### neural_network
 | Python script | Purpose |
 | ---      		|  ------  |
@@ -66,22 +72,6 @@ The following section gives an overview of the packages, directories and include
 | ---      		|  ------  |
 |BaselineTester.py| Provides the possibility to apply other methods for determining similarities of time series, e.g. DTW, tsfresh, ROCKET to the data set. |
 
-### configuration
-| Python script | Purpose |
-| ---      		|  ------  |
-|Configuration.py|The configuration file within which all adjustments can be made.|
-|Hyperparameters.py| Contains the class that stores the hyperparameters used by a single neural network.|
-
-### archive
-The archive contains currently unused code fragments that could potentially be useful again, old configurations and such.
-
-### case_based_similarity
-| Python script | Purpose |
-| ---      		|  ------  |
-|CaseBasedSimilarity.py| Contains the implementation of the case-based similarity measure (CBS). |
-|Inference.py| Evaluation of a CBS model based on the test data set. |
-|Training.py| Used for training a CBS model.|
-
 ### data_processing
 | Python script | Purpose |
 | ---      		|  ------  |
@@ -91,12 +81,3 @@ The archive contains currently unused code fragments that could potentially be u
 |DatasetCreation.py|Third part of preprocessing. Conversion of the cleaned data frames of all partial data sets into the training data.|
 |DatasetPostProcessing.py | Additional, subsequent changes to a dataset are done by this script.|
 |RealTimeClassification.py|Contains the implementation of the real time data processing.|
-        
-### fabric_simulation
-| Python script | Purpose |
-| ---      		|  ------  |
-|FabricSimulation.py|Script to simulate the production process for easier development of real time evaluation.|
-
-### logs
-Used to store the outputs/logs of inference/test runs for future evaluation.
-
