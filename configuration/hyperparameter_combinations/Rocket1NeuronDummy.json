@@ -1,0 +1,11 @@
+{
+  "encoder_variant": "dummy",
+  "batch_size": 64,
+  "epochs": 5000,
+  "epochs_current": 0,
+  "learning_rate": 0.001,
+  "gradient_cap": -1,
+  "dropout_rate": 0.05,
+  "ffnn_layers": [
+  ]
+}
